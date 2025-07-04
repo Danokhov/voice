@@ -10,7 +10,7 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__)
-CORS(app, origins=["https://mnemo-deutsch.de"])
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe_audio():
