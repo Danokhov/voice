@@ -6,7 +6,7 @@ import io
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 
-
+# Загружаем ключ из .env
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -25,15 +25,11 @@ def transcribe_audio():
 
     try:
         response = openai.audio.transcriptions.create(
-        transcript = openai.audio.transcriptions.create(
             model="whisper-1",
-            file=(filename, file_bytes)
-            file=file_stream,
-            filename=filename,
+            file=(filename, file_stream),
             response_format="json"
         )
         return jsonify({'transcript': response.text})
-        return jsonify({'transcript': transcript.text})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
